@@ -35,6 +35,13 @@ module.exports = (grunt) ->
         ]
         dest: 'src/files/css/site.min.css'
 
+    connect:
+      server:
+        options:
+          keepalive: true
+          base: 'out'
+          port: 4000
+
     copy:
       components:
         files: [
@@ -80,6 +87,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-stylus'
   grunt.loadNpmTasks 'grunt-contrib-copy'
   grunt.loadNpmTasks 'grunt-contrib-watch'
+  grunt.loadNpmTasks 'grunt-contrib-connect'
 
   grunt.registerTask 'default', ['vendor']
 
