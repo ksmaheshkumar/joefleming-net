@@ -39,7 +39,7 @@ html(lang="en")
     != getBlock('scripts').add(site.getScripts(getEnvironment())).toHTML()
 
     - if (getEnvironment() == 'production' || getEnvironment() == 'static')
-      script
+      script.
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-8159186-1']);
         _gaq.push(['_trackPageview']);
