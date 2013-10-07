@@ -1,6 +1,7 @@
 cheerio = require 'cheerio'
 moment = require 'moment'
 fs = require 'fs'
+_ = require 'lodash'
 
 # DocPad Configuration File
 # http://docpad.org/docs/config
@@ -85,6 +86,24 @@ docpadConfig =
       preview.find('img,script').remove()
       "<p>" + preview.html() + "</p>"
 
+    getRelatedPosts: (post, limit=4) ->
+      posts = @getCollection('posts').findAllLive(
+        tags:
+          $in: post.tags
+      )
+      posts.models.forEach (p) ->
+        matchedTags = _.countBy p.get('tags'), (tag) ->
+          if _.contains post.tags, tag && post.title != p.get('title')
+            console.log post.title, p.get('title')
+            return 'tagMatches'
+          return 'tagMisses'
+        p.set matchedTags
+
+      related = _.sortBy posts.models, (post) ->
+        return post.get('tagMatches')
+      .splice(0, limit)
+
+      related
 
   # Collections
   # ===========

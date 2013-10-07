@@ -26,6 +26,13 @@ layout: default
         span.follow
           a(href="https://twitter.com/w33ble") Follow me on Twitter
 
+      - var related = getRelatedPosts(document)
+      - if (related.length)
+        .related
+          h2 Related Posts
+          each post, idx in related
+            .item= post.get('title')
+
     a(href="/posts") Back to posts
 
 include includes/sidebar
